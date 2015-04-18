@@ -1,0 +1,53 @@
+#!/usr/bin/env zsh
+
+# global configuration {{{
+
+export ZSH_ROOT_DIR="<%= File.expand_path get_var!('zsh.custom_dir') %>"
+export ZSH_LIB_DIR="${ZSH_ROOT_DIR}/lib"
+export ZSH_MODS_DIR="${ZSH_ROOT_DIR}/mods"
+export ZSH_MODS_CFG_FILE="${ZSH_MODS_DIR}/cfg.zsh"
+
+export HISTFILE=~/.histfile
+export HISTSIZE=1000
+export SAVEHIST=1000
+
+# }}}
+
+
+# require all libraries {{{
+
+function {
+  setopt EXTENDED_GLOB
+  for lib_file in ${ZSH_LIB_DIR}/*.zsh; do
+    source "${lib_file}"
+  done
+}
+
+# }}}
+
+
+# require all modules {{{
+
+# Load the modules configuration.
+if [[ -r ${ZSH_MODS_CFG_FILE} ]]; then
+  source ${ZSH_MODS_CFG_FILE}
+fi
+
+function {
+  # Load zsh modules.
+  zstyle -a ':custom:load' zmodule 'zmodules'
+  for zmodule ("$zmodules[@]") zmodload "zsh/${(z)zmodule}"
+  unset zmodule{s,}
+
+  # Autoload zsh functions.
+  zstyle -a ':custom:load' zfunction 'zfunctions'
+  for zfunction ("$zfunctions[@]") autoload -Uz "$zfunction"
+  unset zfunction{s,}
+
+  # Load custom modules.
+  zstyle -a ':custom:load' mod 'mods'
+  load_mods ${ZSH_MODS_DIR} $mods
+  unset mods
+}
+
+# }}}

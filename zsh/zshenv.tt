@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+# [Summary] This is sourced on all invocations of the shell, unless the `-f`
+# option is set. It should contain commands to set the command  search path,
+# plus other important environment variables. This file should not contain
+# commands that produce output or  assume the shell is attached to a tty.
+
+# Ensure that a non-login, non-interactive shell has a defined environment.
+function {
+  zprofile_path="<%= get_var! 'zsh.custom_dir' %>/zprofile"
+  if [[ "${SHLVL}" -eq 1 && ! -o LOGIN && -s "${zprofile_path}" ]]; then
+    source "${zprofile_path}"
+  fi
+}

@@ -1,0 +1,43 @@
+locale: 'en_US.UTF-8'
+
+cmddiff: 'vimdiff'
+
+colorscheme:
+  name:       'base16'
+  variant:    'default'
+  brightness: 'dark'
+
+downloads_dir: '~/downloads'
+
+xorg:
+  xresources:
+    custom_dir:  '~/.xinit/xresources'
+
+zsh:
+  zshrc_path:   '~/.zshrc'
+  history_file: '~/.zsh-history'
+  custom_dir:   '~/.zsh'
+
+vim:
+  bkp_dir:          '~/.vim_bkps'
+  swaps_dir:        '~/.vim_swaps'
+  undos_dir:        '~/.vim_undos'
+  custom_dir:       '~/.vim'
+  bundle_dir:       '~/.vim/bundle'
+  entry_point:      '~/.vim/vimrc'
+
+features:
+  - 'linux'
+  - 'screen'
+  - 'zsh'
+  - 'vim'
+  - 'lynx'
+  - 'xorg'
+  - 'xmonad'
+  - 'gdb'
+  - 'java'
+  - 'haskell'
+  - 'ruby'
+  - 'python'
+  - 'firefox'
+  - 'zathura'

@@ -1,0 +1,28 @@
+#!/bin/bash
+export XDG_CONFIG_HOME="$HOME/.config"
+export STUFF="$HOME/configs/"
+
+export JAVA_HOME=/usr/lib64/java
+export MANPATH="${MANPATH}:${JAVA_HOME}/man:\
+/opt/texlive/texmf-dist/doc/man"
+export CLASSPATH=".:/opt/antlr/antlr-4.4-complete.jar:$CLASSPATH"
+export PATH="${PATH}:/opt/texlive/bin/x86_64-linux"
+export GOPATH="$HOME/repos/gocode"
+
+export HISTCONTROL=ignoredups
+export ANA=jake@anapnea.net
+
+export LESS='--ignore-case --raw-control-chars'
+<%if has_features :vim %>
+export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
+    vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
+    -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
+    -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
+export EDITOR='vim'
+<% end %>
+export __GIT_PROMPT_DIR="$STUFF/zsh/mods/"
+
+#Export LS_COLORS
+eval `dircolors $HOME/.dircolors`
+
+stty -ixon

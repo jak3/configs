@@ -1,0 +1,4 @@
+set adjust-open width
+set window-title-basename true
+set incremental-search true
+set synctex true

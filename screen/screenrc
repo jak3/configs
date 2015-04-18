@@ -1,0 +1,16 @@
+startup_message off
+deflogin        off
+hardcopy_append on   # DONT PANIC, append instead overwrite backlog
+vbell           off  # try urgencyhook with xmonad (prev on)
+defscrollback   1024
+activity        "activity in %n (%t) [%H]" # number, title, host
+bell            "%C -> Num %n Flag %f Title %t has activity!"
+vbell_msg       "(vbell) dude wait a second! "
+
+bind h prev
+bind l next
+bind P paste    .
+
+terminfo rxvt* 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+
+hardstatus alwayslastline '%{= dg} %H %{G}| %{B}%l %{G}|%=%?%{d}%-w%?%{r}(%{d}%n %t%? {%u} %?%{r})%{d}%?%+w%?%=%{G}| %{B}%M %d %c:%s '

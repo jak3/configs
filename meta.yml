@@ -1,0 +1,219 @@
+## Info & License {{{
+#
+# File informations:
+# - Name:    meta.yml
+# - Summary: The configuration metadata, describing the contents and how they
+#            should be handled.
+# - Authors:
+#   - Giacomo Mantani
+#   - Alessandro Molari <molari.alessandro@gmail.com> (alem0lars)
+#
+# License: Apache v2.0 (see below)
+#
+##
+#
+# Licensed to the Apache Software Foundation (ASF) under one more contributor
+# license agreements.  See the NOTICE file distributed with this work for
+# additional information regarding copyright ownership. The ASF licenses this
+# file to you under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+## }}}
+
+commands: # {{{
+  - type: 'git_sync'
+    repo: 'https://github.com/zsh-users/zsh-completions'
+    dst:  '<%= get_var! "zsh.custom_dir" %>/mods/completion/external'
+    only:
+      features: ['zsh']
+  - type: 'git_sync'
+    repo: 'https://github.com/zsh-users/zsh-history-substring-search'
+    dst:  '<%= get_var! "zsh.custom_dir" %>/mods/history_substring_search/external'
+    only:
+      features: ['zsh']
+  - type: 'git_sync'
+    repo: 'https://github.com/zsh-users/zsh-syntax-highlighting'
+    dst:  '<%= get_var! "zsh.custom_dir" %>/mods/syntax_highlighting/external'
+    only:
+      features: ['zsh']
+  - type: 'git_sync'
+    repo: 'https://github.com/sindresorhus/pure'
+    dst:  '<%= get_var! "zsh.custom_dir" %>/mods/prompt/externals/pure'
+    only:
+      features: ['zsh']
+  - type: 'git_sync'
+    repo: 'https://github.com/chriskempson/base16-shell.git'
+    dst:  '<%= get_var! "zsh.custom_dir" %>/mods/base16/external'
+    only:
+      features: ['zsh']
+  - type: 'git_sync'
+    repo: 'https://github.com/Shougo/neobundle.vim'
+    dst:  '<%= get_var! "vim.bundle_dir" %>/neobundle.vim'
+    only:
+      features: ['vim']
+  - type: 'git_sync'
+    repo: 'https://github.com/chriskempson/base16-xresources'
+    dst:  '<%= get_var! "xorg.xresources.custom_dir" %>/colorschemes/base16'
+    only:
+      features: ['linux']
+      vars: ['colorscheme'] # }}}
+
+elems:
+
+  # commons {{{
+
+  - src: 'git/gitconfig'
+    dst: '~/.gitconfig'
+
+  # }}}
+
+  # coding {{{
+
+  - src:  'cabal/config'
+    dst:  '~/.cabal/config'
+    only:
+      features: ['haskell']
+
+  - src:  'ruby/irbrc'
+    dst:  '~/.irbrc'
+    only:
+      features: ['ruby']
+    notes: |
+      The following features will be enabled if their requirements are met:
+        irb extensions    -> gem 'irbtools' & 'irbtools-more'
+        clipboard support -> xclip
+
+  - src:  'python/(ipython.+)'
+    dst:  '~/.ipython/profile_default/<1>'
+    only:
+      features: ['python']
+
+  # }}}
+
+  # utils {{{
+
+  - src: 'cmus/(.+)'
+    dst: '~/.cmus/<1>'
+    only:
+      features: ['cli_centric', 'cmus']
+
+  - src:  'weechat/(.+)'
+    dst:  '~/.weechat/<1>'
+    only:
+      features: ['cli_centric', 'weechat']
+
+  - src: 'lynx/lynxrc'
+    dst: '~/.lynxrc'
+    only:
+      features: ['lynx']
+
+  - src: 'gdb/(.+)'
+    dst: '~/.gdb/<1>'
+    only:
+      features: ['gdb']
+
+  - src:  'zathura/zathurarc'
+    dst:  '~/.config/zathura/zathurarc'
+    only:
+      features: ['zathura']
+
+  - src:  'xorg/xpdf/xpdfrc'
+    dst:  '~/.xpdfrc'
+    only:
+      features: ['xorg']
+
+  - src:  'xorg/xscreensaver/xscreensaver'
+    dst:  '~/.xscreensaver'
+    only:
+      features: ['xorg']
+
+  # }}}
+
+  # habitat {{{
+
+  - src: 'xmonad/xmonad.hs'
+    dst: '~/.xmonad/xmonad.hs'
+    only:
+      features: ['xmonad']
+
+  - src:  'zsh/(zshrc)'
+    dst:  '<%= get_var! "zsh.zshrc_path" %>'
+    only:
+      features: ['zsh']
+
+  - src:  'zsh/(zshenv)'
+    dst:  '<%= get_var! "zsh.zshenv_path" %>'
+    only:
+      features: ['zsh']
+
+  - src:  'zsh/(zlogin)'
+    dst:  '<%= get_var! "zsh.zlogin_path" %>'
+    only:
+      features: ['zsh']
+
+  - src:  'zsh/(zlogout)'
+    dst:  '<%= get_var! "zsh.zlogout_path" %>'
+    only:
+      features: ['zsh']
+
+  - src:  '^zsh/((?!.*(?:zshrc|zshenv|zlogin|zlogout)$).*)$'
+    dst:  '<%= get_var! "zsh.custom_dir" %>/<1>'
+    only:
+      features: ['zsh']
+
+  - src:  '^vim/vimrc$'
+    dst:  '<%= get_var! "vim.entry_point" %>'
+    only:
+      features: ['vim']
+      vars: ['vim.entry_point']
+
+  - src:  '^vim/gvimrc$'
+    dst:  '<%= get_var! "vim.gui_entry_point" %>'
+    only:
+      features: ['vim']
+      vars: ['vim.gui_entry_point']
+
+  - src:  '^vim/((?!.*(?:vimrc|gvimrc)$).*)$'
+    dst:  '<%= get_var! "vim.custom_dir" %>/<1>'
+    only:
+      features: ['vim']
+
+  - src: 'pentadactyl/pentadactylrc'
+    dst: '~/.pentadactylrc'
+    only:
+      features: ['firefox']
+
+  - src:  'pentadactyl/plugin/(.+)'
+    dst:  '~/.pentadactyl/<1>'
+    only:
+      features: ['firefox']
+
+  - src: 'screen/screenrc'
+    dst: '~/.screenrc'
+    only:
+      features: ['screen']
+
+  # }}}
+
+  # linux core {{{
+
+  - src: 'xorg/Xdefaults'
+    dst: '~/.Xdefaults'
+    only:
+      features: ['linux']
+
+  - src: 'xorg/xinitrc'
+    dst: '~/.xinitrc'
+    only:
+      features: ['linux']
+
+  # }}}

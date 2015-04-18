@@ -1,0 +1,23 @@
+Config { font = "xft:Bitstream Vera Sans Mono:size=9:bold:antialias=true"
+       , bgColor = "#1B1D1E"
+       , fgColor = "grey"
+       , position = TopW C 100
+       , commands = [ Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+                    , Run Network "eth0" ["-L","0","-H","70","--normal","green","--high","red"] 10
+                    , Run Network "wlan0" ["-L","0","-H","70","--normal","green","--high","red"] 10
+                    , Run Memory ["-t","Mem: <usedratio>%"] 10
+                    , Run BatteryP ["BAT0"]
+                        ["-t", "<acstatus> <left> "
+                        , "-L", "10", "-H", "80"
+                        , "-l", "red", "-h", "green"
+                        , "--", "-O", "<fc=red>⚡⚡⚡⚡⚡</fc>", "-o", ""
+                        ] 10
+                    , Run Date "%a %b %_d %l:%M" "date" 10
+                    , Run Com "/bin/sh $HOME/personal_stuff/scripts/vol.sh" [] "volume" 10
+                    , Run StdinReader
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%StdinReader%}{ | <fc=grey>%cpu% | %memory% | %eth0%%wlan0%</fc> | <fc=#ee9a00>%date%</fc> | Vol: <fc=green>%volume%</fc> | %battery% "
+       }
+     }
