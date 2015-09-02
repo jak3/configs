@@ -36,11 +36,15 @@ alias bye='shutdown -h now'
 alias c='clear'
 alias ca='clear;history -c;dirs -c'
 alias cd=cd_and_ls
+alias cdd='cd <%= get_var! "downloads_dir" %>'
 alias cdb='cd ..'
 alias cdbb='cd ../../'
 alias cdbbb='cd ../../../'
 alias cdl=cd_last_dir
 alias cp='cp -i'
+<%if has_feature? :screen %>
+alias cudir='screen -X eval "chdir $PWD"'
+<% end %>
 alias e='exit'
 alias egrep='egrep --color=auto'
 alias eth0='dhcpcd eth0'
@@ -62,10 +66,6 @@ alias reboot='su -c reboot'
 alias shutdown='su -c shutdown'
 alias sudo='su -c'
 alias which='type -a'
-alias cdd='<%= get_var! "downloads_dir" %>'
-<%if has_feature? :screen %>
-alias cudir='screen -X eval "chdir $PWD"'
-<% end %>
 
 ## Typo aliases
 alias xs='cd'

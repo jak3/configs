@@ -6,8 +6,9 @@ export JAVA_HOME=/usr/lib64/java
 export MANPATH="${MANPATH}:${JAVA_HOME}/man:\
 /opt/texlive/texmf-dist/doc/man"
 export CLASSPATH=".:/opt/antlr/antlr-4.4-complete.jar:$CLASSPATH"
-export PATH="${PATH}:/opt/texlive/bin/x86_64-linux"
+export PATH="${PATH}:${JAVA_HOME}:/opt/texlive/bin/x86_64-linux"
 export GOPATH="$HOME/repos/gocode"
+export _JAVA_AWT_WM_NONREPARENTING=1 # xmonad work around blank windows
 
 export HISTCONTROL=ignoredups
 export ANA=jake@anapnea.net
@@ -20,7 +21,7 @@ export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
     -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
 export EDITOR='vim'
 <% end %>
-export __GIT_PROMPT_DIR="$STUFF/zsh/mods/"
+export __GIT_PROMPT_DIR="$STUFF/zsh/"
 
 #Export LS_COLORS
 eval `dircolors $HOME/.dircolors`
